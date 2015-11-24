@@ -33,17 +33,19 @@ app.get("/",function(req, res){
 });
 ```
 
-```
-http://localhost/~joel.zhong/104/holyshit/app/index.php/client/
+
+<code>http://localhost/~joel.zhong/104/holyshit/app/index.php/client/</code>
 
 you can replace to your correct url.
 
 like this
-http://localhost/holyshit-online/app/index.php/client/
 
-```
-
-### 4.open the terminal then keypress <code>node your_holyshit_folder/app/node/server.js</code>
+<code>http://localhost/holyshit-online/app/index.php/client/</code>
 
 
-have fun :)
+### 4.open the terminal then keypress
+<code>node your_holyshit_folder/app/node/server.js</code>
+
+
+
+### have fun :)
