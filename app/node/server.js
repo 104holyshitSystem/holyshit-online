@@ -90,7 +90,7 @@ var addEvent = function(sensorCommand, callback) {
 
                                 var updateAttribute = '';
                                 if(command == 'lock') {
-                                    updateAttribute = 'is_door_lock111';
+                                    updateAttribute = 'is_door_lock';
                                 } else if (command == 'toilet') {
                                     updateAttribute = 'is_detected_sit_down';
                                 }
@@ -156,7 +156,7 @@ var addEvent = function(sensorCommand, callback) {
 
 // 首頁
 app.get("/",function(req, res){
-    res.redirect('http://localhost/~joel.zhong/104/holyshit/app/index.php/client/');
+    res.redirect('http://localhost/~joel.zhong/104/holyshit-online/app/index.php/client/');
 });
 
 
