@@ -1,0 +1,4 @@
+app/assets/*.*
+app/protected/runtime/*.*
+app/protected/data/*.db
+app/protected/config/database.php

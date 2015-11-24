@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        // @see http://stackoverflow.com/questions/9350746/using-settimeout-with-ajax-calls
+        var ajaxLive = function (){
+            $.ajax({ url: "http://localhost/~joel.zhong/holyshit/app/index.php/api/live", success: function(data){
+                var notice = "";
+                $.each(data, function(i, toilet){
+                    if(toilet.is_door_lock == true && toilet.is_detected_sit_down == true){
+                        notice += "<font style='color:red;'>編號[" + toilet.id + "]的廁所, 正在使用中</font>";
+                    } else if(toilet.is_door_lock == true && toilet.is_detected_sit_down == false){
+                        notice += "<font style='color:yellow;'>編號[" + toilet.id + "]的廁所, 已鎖門, 但沒坐在馬桶</font>";
+                    } else if(toilet.is_door_lock == false && toilet.is_detected_sit_down == false){
+                        notice += "<font style='color:green;'>編號[" + toilet.id + "]的廁所目前是空的</font>";
+                    } else {
+                        notice += "編號[" + toilet.id + "]的廁所使用狀況不正常, 鎖門=" + toilet.is_door_lock + " , 馬桶偵測=" + toilet.is_detected_sit_down;
+                    }
+                    console.log(toilet.id + ":" + "is_door_lock=" + toilet.is_door_lock + ", is_detected_sit_down=" + toilet.is_detected_sit_down);
+                    notice += "-動作時間:" + toilet.updated_at + "<br>";
+                });
+
+                $("#toilets").html(notice);
+                setTimeout(ajaxLive, 5000);
+            }, dataType: "json", timeout: 5000 });
+        };
+
+        $(document).on("ready", function(){
+            ajaxLive();
+        });
+    </script>
+</head>
+<body>
+    <div id="toilets">
+
+    </div>
+</body>
+</html>

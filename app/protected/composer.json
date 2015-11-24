@@ -1,0 +1,8 @@
+{
+  "require":{
+    "nesbot/carbon": "~1.14",
+    "fzaninotto/faker": "^1.5",
+    "guzzle/guzzle":"*",
+    "cboden/ratchet": "*"
+  }
+}

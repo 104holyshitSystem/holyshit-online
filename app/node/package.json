@@ -1,0 +1,11 @@
+{
+  "name": "have-fun-to-toilet",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express":"~4.11.2",
+    "socket.io":"~1.3.3",
+    "mysql":"~2.5.5"
+  }
+}

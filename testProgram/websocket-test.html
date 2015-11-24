@@ -1,0 +1,13 @@
+<script>
+    if(window.WebSocket){
+        alert("您的浏览器支持HTML5的WebSocket协议");
+    }
+    else{
+        alert("您的浏览器不支持HTML5的WebSocket协议");
+    }
+
+    var mySocket = new WebSocket("ws://localhost/~joel.zhong/holyshit/TestHttpServer.php", "http");
+    mySocket.onmessage = function(e) {
+        console.log(e.data);
+    }
+</script>
