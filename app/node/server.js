@@ -36,6 +36,7 @@ var db = mysql.createPool({
  * @see https://www.terlici.com/2015/08/13/mysql-node-express.html
  * @see http://www.codediesel.com/nodejs/mysql-transactions-in-nodejs/
  * @see https://cnodejs.org/topic/516b64596d38277306407936
+ * @see http://stackoverflow.com/questions/263965/how-can-i-convert-a-string-to-boolean-in-javascript
  * @param sensorCommand
  * @param callback
  */
