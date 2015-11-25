@@ -21,7 +21,7 @@ var db = mysql.createPool({
     connectionLimit   :   100,
     host              :   'localhost',
     user              :   'root',
-    password          :   '',
+    password          :   'admin',
     database          :   'holyshit',
     debug             :   false
 });
@@ -117,8 +117,8 @@ var addEvent = function(sensorCommand, callback) {
                                     "INSERT INTO toilet_realtime_status(id, is_door_lock, is_detected_sit_down, floor, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?)",
                                     [
                                         toiletId,
-                                        (command == 'lock') ? sensorValue : 0,
-                                        (command == 'toilet') ? sensorValue : 0,
+                                        (command == 'lock') ? Boolean(sensorValue) : 0,
+                                        (command == 'toilet') ? Boolean(sensorValue) : 0,
                                         floor,
                                         createdAt,
                                         updatedAt
@@ -154,13 +154,13 @@ var addEvent = function(sensorCommand, callback) {
     });
 }
 
-// 首頁
+// 改成直接回應 200
 app.get("/",function(req, res){
-    res.redirect('http://localhost/~joel.zhong/104/holyshit-online/app/index.php/client/');
+    res.send(200);
 });
 
 
-//接收參數 並且廣播給連線的使用者
+// 接收參數 並且廣播給連線的使用者
 app.post('/api',function(req, res){
     var commandParams = JSON.parse(req.body.jsondata)[0];
     console.log(commandParams);
@@ -180,10 +180,7 @@ app.post('/api',function(req, res){
                     }
 
                     io.emit('system', rows);
-
-                    for(var i = 0; i < rows.length; i++) {
-                        console.log(rows[i]);
-                    }
+                    io.emit('message',  'command:' + req.body.jsondata);
 
                 });
 
@@ -196,7 +193,10 @@ app.post('/api',function(req, res){
     res.send(200);
 });
 
-//隨機選定名稱
+/**
+ * 隨機選定名稱
+ * @see http://socket.io/get-started/chat/
+ */
 io.on('connection', function(socket){
     socket.on('message', function(msg){
         io.emit('message', msg);
