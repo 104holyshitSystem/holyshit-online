@@ -5,7 +5,7 @@
 
 ---
 
-### 2.setting app/config/database.php
+### 2.setting app/protectd/config/database.php
 ``` 
 <?php
 
