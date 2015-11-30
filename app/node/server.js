@@ -21,7 +21,7 @@ var db = mysql.createPool({
     connectionLimit   :   100,
     host              :   'localhost',
     user              :   'root',
-    password          :   'admin',
+    password          :   '1qaz2wsx',
     database          :   'holyshit',
     debug             :   false
 });

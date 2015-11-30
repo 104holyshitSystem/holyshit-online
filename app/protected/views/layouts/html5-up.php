@@ -21,7 +21,7 @@
 
     <!-- Header -->
     <header id="header" class="alt">
-        <h1><a href="index.html">Holy Shit</a></h1>
+        <h1><a href="index.php">Holy Shit</a></h1>
         <nav id="nav">
             <ul>
                 <li class="special">
