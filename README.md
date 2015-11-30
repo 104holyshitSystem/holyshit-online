@@ -49,4 +49,4 @@ The api of sensor receive in <code>localhost:3000/api/</code>
 
 You can test in this url <code>http://localhost/holyshit-online/test-program/send-test.html</code> if you want to test api.
 
-### have fun :)
+### have fun AGAIN :)
