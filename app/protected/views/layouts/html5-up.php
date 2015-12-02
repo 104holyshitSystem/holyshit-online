@@ -14,14 +14,14 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/css/ie9.css" /><![endif]-->
 </head>
-<body class="landing">
+<body class="<?php echo $this->bodyClass; ?>">
 
 <!-- Page Wrapper -->
 <div id="page-wrapper">
 
     <!-- Header -->
-    <header id="header" class="alt">
-        <h1><a href="index.php">Holy Shit</a></h1>
+    <header id="header" class="<?php echo $this->headerClass; ?>">
+        <h1><a href="<?php echo Yii::app()->request->baseUrl; ?>">Holy Shit</a></h1>
         <nav id="nav">
             <ul>
                 <li class="special">
@@ -51,7 +51,7 @@
             <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
         </ul>
         <ul class="copyright">
-            <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            <li>&copy; Untitled</li><li>Design: Holy Shit</li>
         </ul>
     </footer>
 
