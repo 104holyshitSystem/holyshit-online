@@ -6,23 +6,19 @@
 	width:100%;
 	margin:0 auto;
 	font-family:"微軟正黑體", century gothic, verdana, Arial;
-}
-.content{
-	float: left;
-	height: 870px;
-	width: 100%;
+	height: 600px;
 }
 .left {
 	float:left;
 	width:50%;
-	height: 65%;
+	height: 100%;
 	background-image:url(<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/banner.jpg);
 }
 .right {
 	float: right;
 	width:50%;
 	background-color: #fff;
-	height: 65%;
+	height: 100%;
 }
 .left h3 {
 	color:#FFF;
@@ -66,31 +62,26 @@
 }
 
 .left .left-2 li span {
-	display: inline-block;
-	font-size:87px;
+	font-size:70px;
 	vertical-align: middle;
 	font-weight: bold;
-	position: relative;
-	left:-40px;
-	color:#333;/*
-	padding-right: 20px;
-	border-right: solid #333 2px;*/
+	color:#333;
+	margin-left:-5%;
 }
 
 .left .left-2 li img {
-	position: relative;
-	right: -20px;
 	vertical-align: middle;
-	max-width: 80%;
 }
-.left .left-2 li strong img{
-	width: 35%;
-	margin-right: 50px;}
+.left .left-2 li strong img {
+	width: 38%;
+	margin-right: 10%;
+	margin-left: 10%;
+}
 
 .right .right-2 {
 	padding:0 10px;
 	overflow: auto;
-	height: 410px;
+	height: 440px;
 	margin:0px 30px 10px 30px;
 }
 .right .name {
@@ -117,11 +108,31 @@
 #messages { list-style-type: none; color: #000; }
 #messages li:nth-child(odd) { background: #eee; }
 
+@media screen and (max-width: 1100px) {
+	.left .left-2 li span {
+	font-size:45px;
+	}
+}
+@media screen and (max-width: 980px) {
+	.left .left-2 li span {
+	font-size:35px;
+	}
+}
+@media screen and (max-width: 736px) {
+    .left {
+    	width:100%;
+    }
+    .right {
+    	width:100%;
+    }
+    .left .left-2 li span {
+	font-size:35px;
+	}
+}
 </style>
 <!-- Main -->
   <article id="main"> 
         <div class="all">
-          <div class="content">
             <div class="left">
               <h3>男廁使用狀態顯示</h3>
               <div class="left-2">
@@ -153,7 +164,6 @@
                     <input style="width: 100%" id="m" autocomplete="off" placeholder="Type here..." />
                 </form>
               </div>
-            </div>
           </div>
         </div>
   </article>
