@@ -60,11 +60,10 @@ var addEvent = function(sensorCommand, callback) {
                 [toiletId, command, sensorValue, sensorCommand.unixtime, createdAt, updatedAt],
                 function(error, results, fields) {
                     if(error) {
-                        connection.rollback(function(){
-                            console.log("新增event發生錯誤:" + error);
-                            callback(false);
-                            throw err;
-                        });
+                        connection.rollback();
+                        console.log("新增event發生錯誤:" + error);
+                        callback(false);
+                        return;
                     }
 
                     connection.query(
@@ -72,20 +71,20 @@ var addEvent = function(sensorCommand, callback) {
                         [toiletId],
                         function(error, results, fields) {
                             if(error) {
-                                connection.rollback(function(){
-                                    console.log("讀取即時資訊發生錯誤:" + error);
-                                    callback(false);
-                                    throw err;
-                                });
-                            }
-
-                            if(command == 'beep') {
-                                connection.commit();
-                                console.log('RFID不更新廁所動態顯示表.');
-                                callback(true);
+                                connection.rollback();
+                                console.log("讀取即時資訊發生錯誤:" + error);
+                                callback(false);
                                 return;
                             }
 
+                            var statusScopes = ["toilet", "lock"];
+
+                            if(statusScopes.indexOf(command) == -1) {
+                                connection.commit();
+                                console.log(command + '不更新廁所動態顯示表.');
+                                callback(true);
+                                return;
+                            }
 
                             if(results.length > 0) {
 
@@ -94,6 +93,11 @@ var addEvent = function(sensorCommand, callback) {
                                     updateAttribute = 'is_door_lock';
                                 } else if (command == 'toilet') {
                                     updateAttribute = 'is_detected_sit_down';
+                                } else {
+                                    connection.commit();
+                                    console.log(command + ', 不是一個廁所是否使用的狀態值');
+                                    callback(true);
+                                    return;
                                 }
 
                                 connection.query(
@@ -101,11 +105,10 @@ var addEvent = function(sensorCommand, callback) {
                                     [(sensorValue == "true") ? 1 : 0, updatedAt, toiletId],
                                     function(error, results, fields) {
                                         if(error) {
-                                            connection.rollback(function(){
-                                                console.log("更新即時資訊發生錯誤:" + error);
-                                                callback(false);
-                                                throw err;
-                                            });
+                                            connection.rollback();
+                                            console.log("更新即時資訊發生錯誤:" + error);
+                                            callback(false);
+                                            return;
                                         }
                                     }
                                 );
@@ -126,11 +129,10 @@ var addEvent = function(sensorCommand, callback) {
                                     ],
                                     function(error, results, fields) {
                                         if(error) {
-                                            connection.rollback(function(){
-                                                console.log("新增即時資訊發生錯誤:" + error);
-                                                callback(false);
-                                                throw err;
-                                            });
+                                            connection.rollback();
+                                            console.log("新增即時資訊發生錯誤:" + error);
+                                            callback(false);
+                                            return;
                                         }
                                     }
                                 );
