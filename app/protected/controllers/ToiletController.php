@@ -33,13 +33,11 @@ class ToiletController extends Controller
         $this->bodyClass = '';
         $this->headerClass = '';
         
-        $toilets = Yii::app()->db->createCommand()
-            ->select('id, floor, is_door_lock, is_detected_sit_down, updated_at')
-            ->from('toilet_realtime_status')
-            ->queryAll();
-        
+        $toilets = ToiletObj::getToilets();
         $this->render('live2', array(
             'toilets' => $toilets
         ));
     }
+    
+     
 }

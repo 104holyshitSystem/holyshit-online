@@ -65,7 +65,6 @@
 	padding: 15px 0;
 }
 
-
 .left .left-2 li span {
 	display: inline-block;
 	font-size:87px;
@@ -77,7 +76,6 @@
 	padding-right: 20px;
 	border-right: solid #333 2px;*/
 }
-
 
 .left .left-2 li img {
 	position: relative;
@@ -110,15 +108,13 @@
 	text-align:left;
 	line-height:30px;
 	margin:0px 30px 10px 30px;
-
-
 	border:#555 solid 8px;
 }
 .right-3 input{
 	color: #000;
 }
 
-#messages { list-style-type: none; color: #000;}
+#messages { list-style-type: none; color: #000; }
 #messages li:nth-child(odd) { background: #eee; }
 
 </style>
@@ -130,20 +126,15 @@
               <h3>男廁使用狀態顯示</h3>
               <div class="left-2">
                 <ul>
+                  <?php foreach($toilets as $toilet){ ?>
                   <li>
-                    <span>7F</span>
+                    <span><?php echo $toilet->floor; ?>F</span>
                     <strong>
-                        <img id="toilet-1" src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_03.png" />
+                        <img id="toilet-<?php echo $toilet->id; ?>" src="<?php echo $toilet->getShitPath(); ?>" />
                     </strong>
-                    <img id="toilet-status-1" src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_05.png" />
+                    <img id="toilet-status-<?php echo $toilet->id; ?>" src="<?php echo $toilet->getIconPath(); ?>" />
                   </li>
-                  <li>
-                    <span>6F</span>
-                    <strong>
-                        <img id="toilet-2" src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_04.png" />
-                    </strong>
-                    <img id="toilet-status-2" src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_06.png" />
-                  </li>
+                  <?php } ?>
                 </ul>
               </div>
             </div>
@@ -159,7 +150,7 @@
               -->
               <div class="right-3">
               	<form style="margin:0; padding:0">
-                    <input style="width: 100%" id="m" autocomplete="off" />
+                    <input style="width: 100%" id="m" autocomplete="off" placeholder="Type here..." />
                 </form>
               </div>
             </div>
@@ -203,14 +194,19 @@
         //$("#toilets").html(notice);
     }
 
+    <?php /* ?>
     $(document).on('ready', function() {
         var initData = <?php echo json_encode($toilets); ?>;
         refreshToilet(initData);
     });
-
+    <?php */ ?>
+    
     socket.emit('message', name+"加入了廁所不孤單");
     $('form').submit(function(){
-        socket.emit('message', name+"說："+$('#m').val());
+        var msg = $.trim($('#m').val());
+        if(msg != ''){
+            socket.emit('message', name+"說："+msg);
+        }
         $('#m').val('');
         return false;
     });
