@@ -1823,27 +1823,27 @@
 	}
 
 	::-webkit-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		/*color: rgba(255, 255, 255, 0.5) !important;*/
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		/*color: rgba(255, 255, 255, 0.5) !important;*/
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		/*color: rgba(255, 255, 255, 0.5) !important;*/
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		/*color: rgba(255, 255, 255, 0.5) !important;*/
 		opacity: 1.0;
 	}
 
 	.formerize-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		/*color: rgba(255, 255, 255, 0.5) !important;*/
 		opacity: 1.0;
 	}
 
