@@ -1,4 +1,4 @@
-<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+﻿<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
 <style>
@@ -255,6 +255,12 @@
                     }
                     else{
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，離開馬桶了！快去排隊！'));
+                        shitCheck = false;
+                    }
+                    break;
+		        case 'bathHOT':
+                    if(data.value=="true"){
+                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人靠近廁所門！'));
                         shitCheck = false;
                     }
                     break;
