@@ -26,6 +26,16 @@ class ToiletController extends Controller
             'toilets' => $toilets
         ));
     }
+    
+    public function actionCharts()
+    {
+        $this->bodyClass = '';
+        $this->headerClass = '';
+        
+        $this->render('charts', array(
+            
+        ));
+    }
 
     public function actionLiveTest()
     {

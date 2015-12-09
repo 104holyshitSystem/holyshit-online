@@ -35,7 +35,7 @@ class ToiletObj
         {
             return Yii::app()->request->baseUrl.self::ON_PATH;
         }
-        elseif(!$this->is_door_lock && !$this->is_detected_sit_down)
+        elseif(!$this->is_door_lock && $this->is_detected_sit_down)
         {
             return Yii::app()->request->baseUrl.self::OFF_PATH;
         }
@@ -59,7 +59,7 @@ class ToiletObj
         {
             return Yii::app()->request->baseUrl.self::SHIT_ON_PATH;
         }
-        elseif(!$this->is_door_lock && !$this->is_detected_sit_down)
+        elseif(!$this->is_door_lock && $this->is_detected_sit_down)
         {
             return Yii::app()->request->baseUrl.self::SHIT_OFF_PATH;
         }

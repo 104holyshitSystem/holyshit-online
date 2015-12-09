@@ -1,4 +1,4 @@
-﻿<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/socketio/socket.io-1.3.7.js"></script>
 
 <style>
@@ -175,42 +175,10 @@
     
     var oo = '<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_03.png';
     var xx = '<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_04.png';
+    var done = '<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_07.png';
     var o = '<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_05.png';
     var x = '<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_06.png';
-    
-    function refreshToilet(data) {
-        //var notice = "";
-        $.each(data, function(i, toilet){
-            if(toilet.is_door_lock == true && toilet.is_detected_sit_down == true){
-                //notice += "<font style='color:red;'>編號[" + toilet.id + "]-樓層[" + toilet.floor + "]的廁所, 正在使用中</font>";
-            	$("#toilet-"+toilet.id).attr('src', xx);
-            	$("#toilet-status-"+toilet.id).attr('src', x);
-            } else if(toilet.is_door_lock == true && toilet.is_detected_sit_down == false){
-                //notice += "<font style='color:yellow;'>編號[" + toilet.id + "]-樓層[" + toilet.floor + "]的廁所, 已鎖門, 但沒坐在馬桶</font>";
-            	$("#toilet-"+toilet.id).attr('src', xx);
-            	$("#toilet-status-"+toilet.id).attr('src', x);
-            } else if(toilet.is_door_lock == false && toilet.is_detected_sit_down == false){
-                //notice += "<font style='color:green;'>編號[" + toilet.id + "]-樓層[" + toilet.floor + "]的廁所目前是空的</font>";
-            	$("#toilet-"+toilet.id).attr('src', oo);
-            	$("#toilet-status-"+toilet.id).attr('src', o);
-            } else {
-                //notice += "編號[" + toilet.id + "]-樓層[" + toilet.floor + "]的廁所使用狀況不正常, 鎖門=" + toilet.is_door_lock + " , 馬桶偵測=" + toilet.is_detected_sit_down;
-            	$("#toilet-"+toilet.id).attr('src', xx);
-            	$("#toilet-status-"+toilet.id).attr('src', x);
-            }
-            console.log(toilet.id + ":" + "is_door_lock=" + toilet.is_door_lock + ", is_detected_sit_down=" + toilet.is_detected_sit_down);
-            //notice += "-動作時間:" + toilet.updated_at + "<br>";
-        });
-        //$("#toilets").html(notice);
-    }
 
-    <?php /* ?>
-    $(document).on('ready', function() {
-        var initData = <?php echo json_encode($toilets); ?>;
-        refreshToilet(initData);
-    });
-    <?php */ ?>
-    
     socket.emit('message', name+"加入了廁所不孤單");
     $('form').submit(function(){
         var msg = $.trim($('#m').val());
@@ -221,16 +189,13 @@
         return false;
     });
 
-    socket.on('system', function(data){
-        refreshToilet(data);
-    });
-
     var lockCheck = false;
     var shitCheck = false;
+    var shitDone = false;
     var status = xx;
     var statusIcon = x;
     socket.on('message', function(msg){
-                
+    	shitDone = false;        
         console.log(msg);
         var myRe = /^command:/;
         if(msg.match(myRe)){
@@ -242,8 +207,7 @@
                     if(data.value=="true"){
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人關門了！'));
                         lockCheck = true;
-                    }
-                    else{
+                    }else{
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，開門了！快去搶！'));
                         lockCheck = false;
                     }
@@ -252,16 +216,15 @@
                     if(data.value=="true"){
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人坐下了！'));
                         shitCheck = true;
-                    }
-                    else{
+                    }else{
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，離開馬桶了！快去排隊！'));
                         shitCheck = false;
+                        if(lockCheck == true) shitDone = true;
                     }
                     break;
 		        case 'bathHOT':
                     if(data.value=="true"){
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人靠近廁所門！'));
-                        shitCheck = false;
                     }
                     break;
                 case 'beep':
@@ -274,8 +237,9 @@
             	status = xx;
             	statusIcon = x;
             }else if(lockCheck == true && shitCheck == false){
-            	status = xx;
+                status = xx;
             	statusIcon = x;
+            	if(shitDone) status = done;
             }else if(lockCheck == false && shitCheck == false){
             	status = oo;
             	statusIcon = o;
@@ -285,8 +249,7 @@
             }
             $("#toilet-"+data.toiletID).attr('src', status);
             $("#toilet-status-"+data.toiletID).attr('src', statusIcon);
-        }
-        else{
+        }else{
             $('#messages').append($('<li>').text(msg));
         }
         
