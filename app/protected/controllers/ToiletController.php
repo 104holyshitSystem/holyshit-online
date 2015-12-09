@@ -18,26 +18,24 @@ class ToiletController extends Controller
 
     public function actionLive()
     {
+        $this->bodyClass = '';
+        $this->headerClass = '';
+
+        $toilets = ToiletObj::getToilets();
+        $this->render('live', array(
+            'toilets' => $toilets
+        ));
+    }
+
+    public function actionLiveTest()
+    {
         $toilets = Yii::app()->db->createCommand()
             ->select('id, floor, is_door_lock, is_detected_sit_down, updated_at')
             ->from('toilet_realtime_status')
             ->queryAll();
 
-        $this->renderPartial('live', array(
+        $this->renderPartial('live_test', array(
             'toilets' => $toilets
         ));
     }
-    
-    public function actionLive2()
-    {
-        $this->bodyClass = '';
-        $this->headerClass = '';
-        
-        $toilets = ToiletObj::getToilets();
-        $this->render('live2', array(
-            'toilets' => $toilets
-        ));
-    }
-    
-     
 }

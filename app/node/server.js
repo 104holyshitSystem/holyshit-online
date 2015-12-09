@@ -53,11 +53,12 @@ var addEvent = function(sensorCommand, callback) {
         var sensorValue = sensorCommand.value;
         var createdAt = new Date();
         var updatedAt = new Date(sensorCommand.unixtime * 1000);
+        var spendTime = sensorCommand.taketime;
 
         connection.beginTransaction(function(error) {
             connection.query(
-                "INSERT INTO toilet_event_logs(toilet_id, sensor_command, sensor_value, unixtime, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-                [toiletId, command, sensorValue, sensorCommand.unixtime, createdAt, updatedAt],
+                "INSERT INTO toilet_event_logs(toilet_id, sensor_command, sensor_value, unixtime, created_at, updated_at, spend_time) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                [toiletId, command, sensorValue, sensorCommand.unixtime, createdAt, updatedAt, spendTime],
                 function(error, results, fields) {
                     if(error) {
                         connection.rollback();

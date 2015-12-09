@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/css/main.css" />
     <!--[if lte IE 8]><link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/css/ie9.css" /><![endif]-->
+
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.min.js"></script>
 </head>
 <body class="<?php echo $this->bodyClass; ?>">
 
@@ -58,7 +60,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.min.js"></script>
+
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.scrollex.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.scrolly.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/skel.min.js"></script>
