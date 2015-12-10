@@ -21,7 +21,7 @@ var db = mysql.createPool({
     connectionLimit   :   100,
     host              :   'localhost',
     user              :   'root',
-    password          :   '1qaz2wsx',
+    password          :   '',
     database          :   'holyshit',
     debug             :   false
 });
@@ -183,7 +183,8 @@ app.post('/api',function(req, res){
                         console.log(error);
                     }
 
-                    io.emit('system', rows);
+                    // 2015.12.10 system頻道先註解掉, 目前沒用到了
+                    // io.emit('system', rows);
                     io.emit('message',  'command:' + req.body.jsondata);
 
                 });
