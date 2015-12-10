@@ -17,6 +17,16 @@ class ToiletObj
     public $floor;
     public $updated_at;
     
+	public function getIsDoorLock()
+	{
+		return ($this->is_door_lock)?'true':'false';
+	}
+	
+	public function getIsDetectedSitDown()
+	{
+		return ($this->is_detected_sit_down)?'true':'false';
+	}
+	
     /**
      * 取得ooxx的圖片路徑
      * @return string

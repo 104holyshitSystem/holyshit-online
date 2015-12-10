@@ -189,9 +189,15 @@
         return false;
     });
 
-    var lockCheck = false;
-    var shitCheck = false;
-    var shitDone = false;
+	var lockCheck = new Array();
+	var shitCheck = new Array();
+	<?php 
+	foreach($toilets as $toilet){ 
+		echo "lockCheck['".$toilet->id."'] = ".$toilet->getIsDoorLock().";".PHP_EOL;
+		echo "shitCheck['".$toilet->id."'] = ".$toilet->getIsDetectedSitDown().";".PHP_EOL;
+	}
+	?>
+	var shitDone = false;
     var status = xx;
     var statusIcon = x;
     socket.on('message', function(msg){
@@ -206,20 +212,20 @@
                 case 'lock':
                     if(data.value=="true"){
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人關門了！'));
-                        lockCheck = true;
+                        lockCheck[data.toiletID] = true;
                     }else{
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，開門了！快去搶！'));
-                        lockCheck = false;
+                        lockCheck[data.toiletID] = false;
                     }
                     break;
                 case 'toilet':
                     if(data.value=="true"){
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人坐下了！'));
-                        shitCheck = true;
+                        shitCheck[data.toiletID] = true;
                     }else{
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，離開馬桶了！快去排隊！'));
-                        shitCheck = false;
-                        if(lockCheck == true) shitDone = true;
+                        shitCheck[data.toiletID] = false;
+                        if(lockCheck[data.toiletID] == true) shitDone = true;
                     }
                     break;
 		        case 'bathHOT':
@@ -233,17 +239,17 @@
                 default:
                 break;
             }
-            if(lockCheck == true && shitCheck == true){
+            if(lockCheck[data.toiletID] == true && shitCheck[data.toiletID] == true){
             	status = xx;
             	statusIcon = x;
-            }else if(lockCheck == true && shitCheck == false){
+            }else if(lockCheck[data.toiletID] == true && shitCheck[data.toiletID] == false){
                 status = xx;
             	statusIcon = x;
             	if(shitDone) status = done;
-            }else if(lockCheck == false && shitCheck == false){
+            }else if(lockCheck[data.toiletID] == false && shitCheck[data.toiletID] == false){
             	status = oo;
             	statusIcon = o;
-            }else if(lockCheck == false && shitCheck == true){
+            }else if(lockCheck[data.toiletID] == false && shitCheck[data.toiletID] == true){
             	status = xx;
             	statusIcon = x;
             }
