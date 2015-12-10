@@ -32,8 +32,27 @@ class ToiletController extends Controller
         $this->bodyClass = '';
         $this->headerClass = '';
         
+        $logs = Yii::app()->db->createCommand()
+            ->select('HOUR(created_at) as hour, count(*) as count')
+            ->from('toilet_event_logs')
+            ->where('spend_time > 1')
+            ->group('HOUR(created_at)')
+            ->queryAll();
+
+        $datas = array();
+        for($i=0; $i<=23; $i++)
+        {
+
+            $currentData = array_filter($logs, function($log) use ($i) {
+                if($log['hour'] == (string)$i)
+                    return $log['count'];
+            });
+
+            $datas[$i] = empty($currentData) ? 0 : array_shift($currentData)['count'];
+        }
+        
         $this->render('charts', array(
-            
+            'datas' => json_encode($datas)
         ));
     }
 
