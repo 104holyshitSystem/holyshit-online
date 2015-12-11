@@ -169,8 +169,9 @@
   </article>
 
 <script>
-    var items = Array('賽在滾','拉屎王','王八烏龜蛋','食屎王','餔雪大師','雪特大師');
-    var name = items[Math.floor(Math.random()*items.length)];
+	var items = Array('真·','武聖·','超·','霸皇·','炫空·','爆裂·','霹靂·');
+    var items2 = Array('后里蟹','拉屎王','蛋營養','蹲廁所','我屎故我在','原力屎');
+    var name = items[Math.floor(Math.random()*items.length)]+items2[Math.floor(Math.random()*items.length)];
     var socket = io('ws://localhost:3000');
     
     var oo = '<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/images/TT-1041124-MI_Web_03.png';
@@ -231,6 +232,11 @@
 		        case 'bathHOT':
                     if(data.value=="true"){
                         $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人靠近廁所門！'));
+                    }
+                    break;
+				case 'warning':
+                    if(data.value=="on"){
+                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，戰況緊急，需要支援！'));
                     }
                     break;
                 case 'beep':

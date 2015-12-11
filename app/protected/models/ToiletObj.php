@@ -111,7 +111,7 @@ class ToiletObj
     
     private static function getCorrectData($defaultToilets, $toilets)
     {
-        if(count($toilets) < count($defaultToilets))
+        if(count($toilets) > 0)
         {
             foreach($defaultToilets as $i => $defaultToilet)
             {
