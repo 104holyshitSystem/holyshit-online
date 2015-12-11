@@ -41,10 +41,11 @@ class ToiletController extends Controller
         $this->bodyClass = '';
         $this->headerClass = '';
         $returnData = $this->getChartData();
-        $this->render('charts', array(
-            'datas' => json_encode($returnData['datas']),
-            'timeJson' => json_encode($returnData['timeJson'])
-        ));
+        $this->render('charts',
+            array(
+                'allDataJson'=>json_encode($returnData)
+            )
+        );
     }
 
     /**

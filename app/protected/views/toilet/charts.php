@@ -1,6 +1,8 @@
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/charts/Chart.min.js"></script>
-
+<script>
+var allDataJson = $.parseJSON('<?php echo $allDataJson; ?>');
+</script>
 <style>
 .all {
 	width:100%;
@@ -63,14 +65,13 @@
 				<div style="width:100%;">
 					<ul class="actions" style="width:1285px; margin: 15px auto;">
 						<?php
-						$date = date('Y/m/d');
 						$startDate = date('Y/m/d', strtotime('-5 day'));
 						$endDate = date('Y/m/d');
 						for($i=$startDate ; $i<=$endDate ; $i=date('Y/m/d', strtotime('+1 day', strtotime($i)))){
 							$iForUrl = date('Y-m-d', strtotime($i));
 						?>
 						<li>
-							<a class="date button <?php if($i == $date) echo ' special'; ?>" href="javascript:;" onclick="getChart('<?php echo $iForUrl; ?>',$(this));">
+							<a class="date button <?php if($i == $endDate) echo ' special'; ?>" href="javascript:;" onclick="getChart('<?php echo $iForUrl; ?>',$(this));">
 								<?php echo $i; ?>
 							</a>
 						</li>
@@ -84,7 +85,7 @@
         </div>
   </article>
 <script>
-	var lineChartData = getLineChartData(<?php echo $timeJson; ?>, <?php echo $datas; ?>)
+	var lineChartData = getLineChartData(allDataJson.timeJson, allDataJson.datas)
 	var ctx;
 	var myLine;
 	window.onload = function(){
