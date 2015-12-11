@@ -1,3 +1,4 @@
 app/assets/*.*
 app/protected/runtime/*.*
 app/protected/data/*.db
+.DS_Store

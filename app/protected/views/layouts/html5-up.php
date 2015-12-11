@@ -33,8 +33,7 @@
                             <li><a href="<?php echo Yii::app()->createUrl('/toilet/introduction/'); ?>">HOME</a></li>
                             <li><a href="<?php echo Yii::app()->createUrl('/toilet/live/'); ?>">LIVE</a></li>
                             <li><a href="<?php echo Yii::app()->createUrl('/toilet/charts/'); ?>">CHART</a></li>
-                            <li><a href="#">Sign Up</a></li>
-                            <li><a href="#">Log In</a></li>
+                            <li><a href="<?php echo Yii::app()->createUrl('/toilet/story/'); ?>">STORY</a></li>
                         </ul>
                     </div>
                 </li>

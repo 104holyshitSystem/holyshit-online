@@ -97,6 +97,11 @@ class ToiletController extends Controller
         return $returnData;
     }
 
+    public function actionStory()
+    {
+        $this->render('story');
+    }
+
     /**
      * show ori live page
      * @throws CException
