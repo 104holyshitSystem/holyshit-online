@@ -8,7 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'HOLY SHIT',
-	'defaultController' => 'toilet/introduction',
+	'defaultController' => 'toilet/story',
 
 	// preloading 'log' component
 	'preload'=>array('log'),

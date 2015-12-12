@@ -6,3 +6,7 @@ app/protected/data/*.db
 .buildpath
 .project
 .settings/org.eclipse.php.core.prefs
+.idea/encodings.xml
+.idea/workspace.xml
+.idea/misc.xml
+.idea/misc.xml
