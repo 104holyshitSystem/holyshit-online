@@ -1,4 +1,4 @@
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.min.js"></script>
+﻿<script src="<?php echo Yii::app()->request->baseUrl; ?>/static/HTML5-UP/assets/js/jquery.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/static/socketio/socket.io-1.3.7.js"></script>
 
 <style>
@@ -209,38 +209,39 @@
             msg = msg.replace(myRe,'');
             var OBJjson = $.parseJSON(msg);
             var data = OBJjson[0];
+	    var toiletname = (data.toiletID==1)?'6F':'7F';
             switch(data.command){
                 case 'lock':
                     if(data.value=="true"){
-                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人關門了！'));
+                        $('#messages').append($('<li>').text('[系統]廁所'+toiletname+'，有人關門了！'));
                         lockCheck[data.toiletID] = true;
                     }else{
-                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，開門了！快去搶！'));
+                        $('#messages').append($('<li>').text('[系統]廁所'+toiletname+'，開門了！快去搶！'));
                         lockCheck[data.toiletID] = false;
                     }
                     break;
                 case 'toilet':
                     if(data.value=="true"){
-                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人坐下了！'));
+                        $('#messages').append($('<li>').text('[系統]廁所'+toiletname+'，有人坐下了！'));
                         shitCheck[data.toiletID] = true;
                     }else{
-                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，離開馬桶了！快去排隊！'));
+                        $('#messages').append($('<li>').text('[系統]廁所'+toiletname+'，離開馬桶了！快去排隊！'));
                         shitCheck[data.toiletID] = false;
                         if(lockCheck[data.toiletID] == true) shitDone = true;
                     }
                     break;
 		        case 'bathHOT':
                     if(data.value=="true"){
-                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人靠近廁所門！'));
+                        $('#messages').append($('<li>').text('[系統]廁所'+toiletname+'，有人靠近廁所門！'));
                     }
                     break;
 				case 'warning':
                     if(data.value=="on"){
-                        $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，戰況緊急，需要支援！'));
+                        $('#messages').append($('<li>').text('[系統]廁所'+toiletname+'，戰況緊急，需要支援！'));
                     }
                     break;
                 case 'beep':
-                    $('#messages').append($('<li>').text('[系統]廁所'+data.toiletID+'，有人拿逼逼卡刷門！卡號是'+data.value));
+                    $('#messages').append($('<li>').text('[系統]廁所'+toiletname+'，有人拿逼逼卡刷門！卡號是'+data.value));
                     break;
                 default:
                 break;
