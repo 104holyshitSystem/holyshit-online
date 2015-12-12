@@ -35,27 +35,34 @@ var allDataJson = $.parseJSON('<?php echo $allDataJson; ?>');
     margin: 0 auto;
 }
 
+.date {
+	border: 1px solid #000000;
+	color: black;
+}
+
+#aaa {
+	display: none;
+}
+
 @media screen and (max-width: 736px) {
 	.all {
-    	height: 400px;
-    }
+		height: 400px;
+	}
 	.actions {
 		display: none;
+	}
+	#aaa{
+		margin: 15px auto;
+		width:90%;
+		display: block;
 	}
 }
 
 @media screen and (max-width: 620px) {
 	.all {
-    	height: 250px;
-    }
+		height: 250px;
+	}
 }
-
-.date {
-	border: 1px solid #000000;
-	color: black;
-	margin: 0;
-}
-
 </style>
 <!-- Main -->
   <article id="main"> 
@@ -63,23 +70,33 @@ var allDataJson = $.parseJSON('<?php echo $allDataJson; ?>');
             <div class="left">
               <h3>廁所使用頻度分析圖表</h3>
 				<div style="width:100%;">
-					<ul class="actions" style="width:1285px; margin: 15px auto;">
+					<?php
+					$startDate = date('Y/m/d', strtotime('-4 day'));
+					$endDate = date('Y/m/d');
+					?>
+					<ul class="actions" style="width:82%; margin: 15px auto;">
 						<?php
-						$startDate = date('Y/m/d', strtotime('-5 day'));
-						$endDate = date('Y/m/d');
 						for($i=$startDate ; $i<=$endDate ; $i=date('Y/m/d', strtotime('+1 day', strtotime($i)))){
 							$iForUrl = date('Y-m-d', strtotime($i));
 						?>
 						<li>
-							<a class="date button <?php if($i == $endDate) echo ' special'; ?>" href="javascript:;" onclick="getChart('<?php echo $iForUrl; ?>',$(this));">
+							<a data-date="<?php echo $iForUrl; ?>" class="date button <?php if($i == $endDate) echo ' special'; ?>" href="javascript:;" >
 								<?php echo $i; ?>
 							</a>
 						</li>
 						<?php } ?>
 					</ul>
+					<select id="aaa">
+						<?php
+						for($i=$startDate ; $i<=$endDate ; $i=date('Y/m/d', strtotime('+1 day', strtotime($i)))){
+							$iForUrl = date('Y-m-d', strtotime($i));
+							?>
+							<option value="<?php echo $iForUrl; ?>" <?php if($i == $endDate) echo 'selected'; ?>><?php echo $i; ?></option>
+						<?php } ?>
+					</select>
 				</div>
               <div class="left-2">
-				<canvas id="canvas" width="1200" height="450"></canvas>
+				<canvas id="canvas" width="1200" height="430"></canvas>
               </div>
             </div>
         </div>
@@ -95,12 +112,24 @@ var allDataJson = $.parseJSON('<?php echo $allDataJson; ?>');
 		});
 	}
 
-	function getChart(date, obj)
-	{
-		if(obj.hasClass('special')) return false;
-		$('.button').removeClass('special');
-		obj.addClass('special');
+	$(function(){
+		$('.date').click(function(){
+			if($(this).hasClass('special'))
+				return false;
 
+			$('.date').removeClass('special');
+			$(this).addClass('special');
+			getChart($(this).attr('data-date'));
+		});
+
+		$('#aaa').change(function(){
+			//alert($(this).val());
+			getChart($(this).val());
+		});
+	});
+
+	function getChart(date)
+	{
 		$.ajax({
 			url: '<?php echo $this->createUrl('toilet/getChart'); ?>',
 			data: 'date='+date,
