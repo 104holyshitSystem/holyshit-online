@@ -11,7 +11,7 @@
     <div class="inner">
         <p>
         <video width="820" height="615" controls>
-            <source src="http://localhost/~joel.zhong/104/holyshit-online/test-program/story.mp4" type="video/mp4">
+            <source src="/holyshit-online/test-program/story.mp4" type="video/mp4">
         </video>
         </p>
     </div>

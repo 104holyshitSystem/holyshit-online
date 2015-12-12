@@ -2,3 +2,7 @@ app/assets/*.*
 app/protected/runtime/*.*
 app/protected/data/*.db
 .DS_Store
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.buildpath
+.project
+.settings/org.eclipse.php.core.prefs
